@@ -1,0 +1,144 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html,
+body {
+    height: 100%;
+    font-family: "Inter", sans-serif;
+    min-width: 450px;
+    background-color: #121212;
+}
+
+header {
+    background-image: 
+        linear-gradient(
+        rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0.5)
+        ),
+        url(/img/background-poster.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 130px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1.2em;
+    color: white;
+}
+
+header a {
+    text-decoration: none;
+    background-color: rgba(75, 75, 75, 0.699);
+    padding: 0.4rem 0.6rem;
+    border-radius: 0.5rem;
+    color: white;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 17vh;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 360px;
+}
+
+.form input,
+.form button {
+padding: 0.6rem 0.8rem;
+    color: white;
+    border: none;
+    font-size: 1em;
+}
+
+.form input {
+    background-color: #4b4b4b;
+    border-radius: 0.5rem 0 0 0.5rem;
+    width: 270px;
+}
+
+::placeholder {
+    color: #a5a5a5;
+    opacity: 1;
+  }
+  
+  ::-ms-input-placeholder {
+    color: #a5a5a5;
+  }
+
+.form button {
+    background-color: #a5a5a5;
+    border-radius: 0 0.5rem 0.5rem 0;
+    width: 90px;
+}
+
+main {
+    padding: 3.5rem 2rem;
+    color: #ffffff;
+}
+
+.poster-container,
+.poster-container img {
+    width: 7rem;
+}
+
+.poster-container {
+    display: flex;
+    height: 11rem;
+    align-items: center;
+}
+
+.movie-container {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 0.85rem;
+    border-bottom: 1px solid #a5a5a5;
+    padding: 1rem 0;
+}
+
+.description-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.title-rating {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.length-genres-add {
+    display: flex;
+    gap: 0.5rem;
+    font-weight: 530;
+    align-items: center;
+}
+
+.length-genres-add .add {
+    cursor: pointer;
+}
+
+.description {
+    color: #a5a5a5;
+}
+
+.placeholder-container {
+    width: 100%;
+    margin-top: 10rem;
+    text-align: center;
+    color: #2e2e2f;
+    font-weight: bold;
+}
+
+.empty {
+    margin: 0.5rem;
+}
+
