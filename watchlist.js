@@ -1,12 +1,12 @@
 const moviesCont = document.getElementById("watchlist-movies")
 let watchlistMovies = []
-
+// add eventlistener
 document.addEventListener("click", e => {
     if (e.target.dataset.imdbid) {
         handleRemoveBtn(e.target.dataset.imdbid)
     }
 })
-
+// get movies from local storage
 function getMoviesFromLocalStorage() {
     let moviesFromLocalStorage = JSON.parse(localStorage.getItem("watchlist"))
     watchlistMovies = moviesFromLocalStorage
@@ -14,7 +14,7 @@ function getMoviesFromLocalStorage() {
         renderMovies(watchlistMovies)
     }
 }
-
+// get html to render
 function renderMovies(movies) {
     let html = ""
     
@@ -52,11 +52,11 @@ function renderMovies(movies) {
     })
     render(html)
 }
-
+// render
 function render(htmlFeed) {
     moviesCont.innerHTML = htmlFeed
 }
-
+// remove button function, filter movie to remove, add new array to local storage, if wathlist empty render messege
 function handleRemoveBtn(imdbid) {
     const newMomiesArr = watchlistMovies.filter(movie => {
         if (!(imdbid === movie.imdbID)) {

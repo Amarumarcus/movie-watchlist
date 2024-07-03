@@ -1,7 +1,10 @@
 const searchInput = document.getElementById("search-input")
+const messageContainer = document.getElementById("message-container")
+const message = document.getElementById("message")
 let moviesDataToRender = []
 let watchlistMovies = []
 
+// add event listeners
 document.addEventListener("click", (e) => {
     if (e.target.id === "search-btn") {
         e.preventDefault()
@@ -12,23 +15,23 @@ document.addEventListener("click", (e) => {
     }
 })
 
+// fetch data from API
 async function getMovie(movieToSearch) {
-    const response = await fetch(`http://www.omdbapi.com/?apikey=79b38451&s=${movieToSearch}`);
+    // get search results
+    const response = await fetch(`https://www.omdbapi.com/?apikey=79b38451&s=${movieToSearch}`);
     const data = await response.json()
-    console.log(data)
+    // find movies with full info, push to array, call function with this array
     const moviesArr = data.Search
-    
     moviesArr.map( async (id) => {
-        const response = await fetch(`http://www.omdbapi.com/?apikey=79b38451&i=${id.imdbID}`)
+        const response = await fetch(`https://www.omdbapi.com/?apikey=79b38451&i=${id.imdbID}`)
         const data = await response.json()
         moviesDataToRender.push(data)
         if (moviesDataToRender.length === moviesArr.length) {
             renderMovies(moviesDataToRender)
         }
     }) 
-
 }
-
+// get html, check if movie in watchlist already, get diffrent html results
 function renderMovies(movies) {
     let html = ""
     
@@ -55,7 +58,11 @@ function renderMovies(movies) {
                     <div class="length-genres-add">
                         <p class="length">${Runtime}</p>
                         <p class="genres">${Genre}</p>
-                        <p class="add fa-solid fa-circle-plus" style="font-family:Inter, FontAwesome; font-weight:500" data-imdbid="${imdbID}"> Watchlist</p>
+                        ${ watchlistMovies.find(movie => imdbID === movie.imdbID) ? 
+                            `<p style="color:green">In watchlist</p>` :
+                            `<p class="add fa-solid fa-circle-plus" style="font-family:Inter, FontAwesome; font-weight:500" data-imdbid="${imdbID}" id="${imdbID}"> Watchlist</p>`
+                        }
+                        
                     </div>
                     <div>
                         <p class="description">${Plot}</p>
@@ -66,26 +73,33 @@ function renderMovies(movies) {
         })
     render(html)
 }
-
+// render Html
 function render(htmlFeed) {
     document.getElementById("searched-movies").innerHTML = htmlFeed
 }
 
-
+// set movies to localStorage watchlist, toggle classes and messages if movie in watchlist or not
 function handleWatchlistBtn(imdbid) {
     const checkWatchList = watchlistMovies.find(movie => imdbid === movie.imdbID)
     if (checkWatchList) {
-        console.log("Already in a playlist")
+        message.textContent = "Already in watchlist"
+        messageContainer.classList.toggle("active")
+        setTimeout(() => {messageContainer.classList.toggle("active")}, 2000)
     } else {
         moviesDataToRender.find(movieToWach => {
             if (imdbid === movieToWach.imdbID) {
                 watchlistMovies.push(movieToWach)
                 localStorage.setItem("watchlist", JSON.stringify(watchlistMovies))
+                message.textContent = "Added to watchlist"
+                messageContainer.classList.toggle("active")
+                setTimeout(() => {messageContainer.classList.toggle("active")}, 2000)
+                document.getElementById(`${imdbid}`).classList.toggle("active")
+                document.getElementById(`${imdbid}`).textContent = " In Watchlist"
             }
         })
     }
 }
-
+// get movie from localStorage
 function getMoviesFromLocalStorage() {
     let moviesFromLocalStorage = JSON.parse(localStorage.getItem("watchlist"))
     if (moviesFromLocalStorage) {
@@ -95,8 +109,6 @@ function getMoviesFromLocalStorage() {
 
 getMoviesFromLocalStorage()
 
-
-// watchlist functions
 
 
 
